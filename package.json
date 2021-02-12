@@ -1,6 +1,6 @@
 {
   "name": "@leafac/express-async-handler",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Use asynchronous handlers in Express with good TypeScript support",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
