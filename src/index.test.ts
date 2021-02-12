@@ -6,8 +6,6 @@ import { asyncHandler, asyncErrorHandler } from ".";
 test("Synchronous", async () => {
   const app = express();
 
-  app.use(express.urlencoded({ extended: true }));
-
   app.get<
     { exampleParameter: string },
     { exampleResponseBody: string },
@@ -15,25 +13,30 @@ test("Synchronous", async () => {
     { exampleRequestQuery: string },
     { exampleLocals: string }
   >("/error/:exampleParameter", (req, res) => {
-    // The following are no-ops that are just examples of using the types from the generics
-    req.params.exampleParameter;
-    if (false) res.send({ exampleResponseBody: "exampleResponseBody" });
-    req.body.exampleRequestBody;
-    req.query.exampleRequestQuery;
-    res.locals.exampleLocals;
+    // The following are just examples of using the types from the generics.
+    if (false) {
+      req.params.exampleParameter;
+      res.send({ exampleResponseBody: "exampleResponseBody" });
+      req.body.exampleRequestBody;
+      req.query.exampleRequestQuery;
+      res.locals.exampleLocals;
+    }
 
-    throw new Error("Error from within the app");
+    throw new Error("Error from the app");
   });
 
+  // Adding the generics to ‘app.use<...>()’ doesn’t work. Don’t ask me why; @types/express are weird with error handlers.
   app.use(((err, req, res, next) => {
-    // The following are no-ops that are just examples of using the types from the generics
-    req.params.exampleParameter;
-    if (false) res.send({ exampleResponseBody: "exampleResponseBody" });
-    req.body.exampleRequestBody;
-    req.query.exampleRequestQuery;
-    res.locals.exampleLocals;
+    // The following are just examples of using the types from the generics.
+    if (false) {
+      req.params.exampleParameter;
+      res.send({ exampleResponseBody: "exampleResponseBody" });
+      req.body.exampleRequestBody;
+      req.query.exampleRequestQuery;
+      res.locals.exampleLocals;
+    }
 
-    throw new Error(`Original error: ${err}`);
+    throw new Error(`Decorated error from an error handler: ${err}`);
   }) as express.ErrorRequestHandler<{ exampleParameter: string }, { exampleResponseBody: string }, { exampleRequestBody: string }, { exampleRequestQuery: string }, { exampleLocals: string }>);
 
   const server = app.listen();
@@ -44,7 +47,9 @@ test("Synchronous", async () => {
 
   await expect(
     await (await fetch(`http://localhost:${port}/error/hi`)).text()
-  ).toMatch("Error: Original error: Error: Error from within the app");
+  ).toMatch(
+    "Error: Decorated error from an error handler: Error: Error from the app"
+  );
   expect(server.listening).toBe(true);
 
   server.close();
@@ -53,30 +58,31 @@ test("Synchronous", async () => {
 test("Asynchronous", async () => {
   const app = express();
 
-  app.use(express.urlencoded({ extended: true }));
-
-  app.get<
-    { exampleParameter: string },
-    { exampleResponseBody: string },
-    { exampleRequestBody: string },
-    { exampleRequestQuery: string },
-    { exampleLocals: string }
-  >(
+  // Adding the generics to ‘app.get<...>()’ would also work, but it’s more consistent to add them to ‘asyncHandler<...>()’.
+  app.get(
     "/error/:exampleParameter",
-    asyncHandler(async (req, res) => {
+    asyncHandler<
+      { exampleParameter: string },
+      { exampleResponseBody: string },
+      { exampleRequestBody: string },
+      { exampleRequestQuery: string },
+      { exampleLocals: string }
+    >(async (req, res) => {
+      // The following are just examples of using the types from the generics.
+      if (false) {
+        req.params.exampleParameter;
+        res.send({ exampleResponseBody: "exampleResponseBody" });
+        req.body.exampleRequestBody;
+        req.query.exampleRequestQuery;
+        res.locals.exampleLocals;
+      }
+
       await Promise.resolve();
-
-      // The following are no-ops that are just examples of using the types from the generics
-      req.params.exampleParameter;
-      if (false) res.send({ exampleResponseBody: "exampleResponseBody" });
-      req.body.exampleRequestBody;
-      req.query.exampleRequestQuery;
-      res.locals.exampleLocals;
-
-      throw new Error("Error from within the app");
+      throw new Error("Error from the app");
     })
   );
 
+  // Adding the generics to ‘app.get<...>()’ would *not* work. Don’t ask me why; @types/express are weird with error handlers.
   app.use(
     asyncErrorHandler<
       { exampleParameter: string },
@@ -85,16 +91,17 @@ test("Asynchronous", async () => {
       { exampleRequestQuery: string },
       { exampleLocals: string }
     >(async (err, req, res, next) => {
+      // The following are just examples of using the types from the generics.
+      if (false) {
+        req.params.exampleParameter;
+        res.send({ exampleResponseBody: "exampleResponseBody" });
+        req.body.exampleRequestBody;
+        req.query.exampleRequestQuery;
+        res.locals.exampleLocals;
+      }
+
       await Promise.resolve();
-
-      // The following are no-ops that are just examples of using the types from the generics
-      req.params.exampleParameter;
-      if (false) res.send({ exampleResponseBody: "exampleResponseBody" });
-      req.body.exampleRequestBody;
-      req.query.exampleRequestQuery;
-      res.locals.exampleLocals;
-
-      throw new Error(`Original error: ${err}`);
+      throw new Error(`Decorated error from an error handler: ${err}`);
     })
   );
 
@@ -106,7 +113,9 @@ test("Asynchronous", async () => {
 
   await expect(
     await (await fetch(`http://localhost:${port}/error/hi`)).text()
-  ).toMatch("Error: Original error: Error: Error from within the app");
+  ).toMatch(
+    "Error: Decorated error from an error handler: Error: Error from the app"
+  );
   expect(server.listening).toBe(true);
 
   server.close();
