@@ -45,7 +45,7 @@ test("Synchronous", async () => {
     throw new Error("Invalid address");
   const port = address.port;
 
-  await expect(
+  expect(
     await (await fetch(`http://localhost:${port}/error/hi`)).text()
   ).toMatch(
     "Error: Decorated error from an error handler: Error: Error from the app"
@@ -111,7 +111,7 @@ test("Asynchronous", async () => {
     throw new Error("Invalid address");
   const port = address.port;
 
-  await expect(
+  expect(
     await (await fetch(`http://localhost:${port}/error/hi`)).text()
   ).toMatch(
     "Error: Decorated error from an error handler: Error: Error from the app"
