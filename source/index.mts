@@ -1,11 +1,11 @@
 import express from "express";
-import core from "express-serve-static-core";
+import expressServeStaticCore from "express-serve-static-core";
 
 export function asyncHandler<
-  P = core.ParamsDictionary,
+  P = expressServeStaticCore.ParamsDictionary,
   ResBody = any,
   ReqBody = any,
-  ReqQuery = core.Query,
+  ReqQuery = expressServeStaticCore.Query,
   Locals extends Record<string, any> = Record<string, any>
 >(
   handler: express.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
@@ -20,10 +20,10 @@ export function asyncHandler<
 }
 
 export function asyncErrorHandler<
-  P = core.ParamsDictionary,
+  P = expressServeStaticCore.ParamsDictionary,
   ResBody = any,
   ReqBody = any,
-  ReqQuery = core.Query,
+  ReqQuery = expressServeStaticCore.Query,
   Locals extends Record<string, any> = Record<string, any>
 >(
   handler: express.ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>
