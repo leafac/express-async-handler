@@ -13,8 +13,8 @@ export function asyncHandler<
   return async (req, res, next) => {
     try {
       return await handler(req, res, next);
-    } catch (x) {
-      next(x);
+    } catch (error) {
+      next(error);
     }
   };
 }
@@ -31,8 +31,8 @@ export function asyncErrorHandler<
   return async (err, req, res, next) => {
     try {
       return await handler(err, req, res, next);
-    } catch (x) {
-      next(x);
+    } catch (error) {
+      next(error);
     }
   };
 }
