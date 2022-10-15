@@ -37,10 +37,8 @@ export function asyncErrorHandler<
   };
 }
 
-/*
-if (true) {
-  import { test, expect } from "@jest/globals";
-  import express from "express";
+if (process.env.TEST === "leafac--express-async-handler") {
+  /*
   import fetch from "node-fetch";
   import { asyncHandler, asyncErrorHandler } from ".";
 
@@ -161,5 +159,5 @@ if (true) {
 
     server.close();
   });
+  */
 }
-*/
