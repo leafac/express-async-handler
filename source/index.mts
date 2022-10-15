@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import express from "express";
 import expressServeStaticCore from "express-serve-static-core";
 
@@ -38,11 +39,8 @@ export function asyncErrorHandler<
 }
 
 if (process.env.TEST === "leafac--express-async-handler") {
-  /*
-  import fetch from "node-fetch";
-  import { asyncHandler, asyncErrorHandler } from ".";
-
-  test("Synchronous", async () => {
+  const got = await import("got");
+  await (async () => {
     const app = express();
 
     app.get<
@@ -84,17 +82,16 @@ if (process.env.TEST === "leafac--express-async-handler") {
       throw new Error("Invalid address");
     const port = address.port;
 
-    expect(
-      await (await fetch(`http://localhost:${port}/error/hi`)).text()
-    ).toMatch(
+    assert.equal(
+      await got.default(`http://localhost:${port}/error/hi`).text(),
       "Error: Decorated error from an error handler: Error: Error from the app"
     );
-    expect(server.listening).toBe(true);
+    assert(server.listening);
 
     server.close();
-  });
+  })();
 
-  test("Asynchronous", async () => {
+  await (async () => {
     const app = express();
 
     // Adding the generics to ‘app.get<...>()’ would also work, but it’s more consistent to add them to ‘asyncHandler<...>()’.
@@ -150,14 +147,12 @@ if (process.env.TEST === "leafac--express-async-handler") {
       throw new Error("Invalid address");
     const port = address.port;
 
-    expect(
-      await (await fetch(`http://localhost:${port}/error/hi`)).text()
-    ).toMatch(
+    assert.equal(
+      await got.default(`http://localhost:${port}/error/hi`).text(),
       "Error: Decorated error from an error handler: Error: Error from the app"
     );
-    expect(server.listening).toBe(true);
+    assert(server.listening);
 
     server.close();
-  });
-  */
+  })();
 }
