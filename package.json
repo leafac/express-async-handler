@@ -8,8 +8,8 @@
     "utilities"
   ],
   "homepage": "https://github.com/leafac/express-async-handler",
+  "repository": "https://github.com/leafac/express-async-handler",
   "bugs": "https://github.com/leafac/express-async-handler/issues",
-  "repository": "leafac/express-async-handler",
   "funding": [
     "https://patreon.com/leafac",
     "https://paypal.me/LeandroFacchinettiEU",
