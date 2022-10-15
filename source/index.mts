@@ -40,7 +40,7 @@ export function asyncErrorHandler<
 
 if (process.env.TEST === "leafac--express-async-handler") {
   const got = await import("got");
-  
+
   await (async () => {
     const app = express();
 
@@ -51,7 +51,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
       { exampleRequestQuery: string },
       { exampleLocals: string }
     >("/error/:exampleParameter", (req, res) => {
-      // The following are just examples of using the types from the generics.
+      // The following are examples of using the types from the generics.
       if (false) {
         req.params.exampleParameter;
         res.send({ exampleResponseBody: "exampleResponseBody" });
@@ -65,7 +65,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
 
     // Adding the generics to ‘app.use<...>()’ doesn’t work. Don’t ask me why; @types/express are weird with error handlers.
     app.use(((err, req, res, next) => {
-      // The following are just examples of using the types from the generics.
+      // The following are examples of using the types from the generics.
       if (false) {
         req.params.exampleParameter;
         res.send({ exampleResponseBody: "exampleResponseBody" });
@@ -112,7 +112,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
         { exampleRequestQuery: string },
         { exampleLocals: string }
       >(async (req, res) => {
-        // The following are just examples of using the types from the generics.
+        // The following are examples of using the types from the generics.
         if (false) {
           req.params.exampleParameter;
           res.send({ exampleResponseBody: "exampleResponseBody" });
@@ -135,7 +135,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
         { exampleRequestQuery: string },
         { exampleLocals: string }
       >(async (err, req, res, next) => {
-        // The following are just examples of using the types from the generics.
+        // The following are examples of using the types from the generics.
         if (false) {
           req.params.exampleParameter;
           res.send({ exampleResponseBody: "exampleResponseBody" });
