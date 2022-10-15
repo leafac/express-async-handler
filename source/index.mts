@@ -63,7 +63,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
       throw new Error("Error from the request handler");
     });
 
-    // Adding the generics to ‘app.use<...>()’ doesn’t work. Don’t ask me why; @types/express are weird with error handlers.
+    // Adding the generics to ‘app.use<...>()’ doesn’t work. Don’t ask me why; @types/express is weird with error handlers.
     app.use(((err, req, res, next) => {
       // Examples of using the types from the generics:
       if (false) {
@@ -126,7 +126,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
       })
     );
 
-    // Adding the generics to ‘app.get<...>()’ would *not* work. Don’t ask me why; @types/express are weird with error handlers.
+    // Adding the generics to ‘app.get<...>()’ would *not* work. Don’t ask me why; @types/express is weird with error handlers.
     app.use(
       asyncErrorHandler<
         { exampleParameter: string },
