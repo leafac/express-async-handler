@@ -60,7 +60,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
         res.locals.exampleLocals;
       }
 
-      throw new Error("Error from the app");
+      throw new Error("Error from the request handler");
     });
 
     // Adding the generics to ‘app.use<...>()’ doesn’t work. Don’t ask me why; @types/express are weird with error handlers.
@@ -74,7 +74,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
         res.locals.exampleLocals;
       }
 
-      throw new Error(`Decorated error from an error handler: ${err}`);
+      throw new Error(`Decorated error from the error handler: ${err}`);
     }) as express.ErrorRequestHandler<{ exampleParameter: string }, { exampleResponseBody: string }, { exampleRequestBody: string }, { exampleRequestQuery: string }, { exampleLocals: string }>);
 
     const server = app.listen();
@@ -91,7 +91,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
           })
           .text()
       ).includes(
-        "Error: Decorated error from an error handler: Error: Error from the app"
+        "Error: Decorated error from the error handler: Error: Error from the request handler"
       )
     );
     assert(server.listening);
@@ -122,7 +122,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
         }
 
         await Promise.resolve();
-        throw new Error("Error from the app");
+        throw new Error("Error from the request handler");
       })
     );
 
@@ -145,7 +145,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
         }
 
         await Promise.resolve();
-        throw new Error(`Decorated error from an error handler: ${err}`);
+        throw new Error(`Decorated error from the error handler: ${err}`);
       })
     );
 
@@ -163,7 +163,7 @@ if (process.env.TEST === "leafac--express-async-handler") {
           })
           .text()
       ).includes(
-        "Error: Decorated error from an error handler: Error: Error from the app"
+        "Error: Decorated error from the error handler: Error: Error from the request handler"
       )
     );
     assert(server.listening);
