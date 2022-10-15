@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "./source",
+    "rootDir": "./source/",
     "outDir": "./build/",
 
     "module": "ESNext",
