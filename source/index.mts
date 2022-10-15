@@ -82,9 +82,16 @@ if (process.env.TEST === "leafac--express-async-handler") {
       throw new Error("Invalid address");
     const port = address.port;
 
-    assert.equal(
-      await got.default(`http://localhost:${port}/error/hi`).text(),
-      "Error: Decorated error from an error handler: Error: Error from the app"
+    assert(
+      (
+        await got
+          .default(`http://localhost:${port}/error/hi`, {
+            throwHttpErrors: false,
+          })
+          .text()
+      ).includes(
+        "Error: Decorated error from an error handler: Error: Error from the app"
+      )
     );
     assert(server.listening);
 
@@ -147,9 +154,16 @@ if (process.env.TEST === "leafac--express-async-handler") {
       throw new Error("Invalid address");
     const port = address.port;
 
-    assert.equal(
-      await got.default(`http://localhost:${port}/error/hi`).text(),
-      "Error: Decorated error from an error handler: Error: Error from the app"
+    assert(
+      (
+        await got
+          .default(`http://localhost:${port}/error/hi`, {
+            throwHttpErrors: false,
+          })
+          .text()
+      ).includes(
+        "Error: Decorated error from an error handler: Error: Error from the app"
+      )
     );
     assert(server.listening);
 
