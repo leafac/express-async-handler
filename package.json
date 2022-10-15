@@ -2,27 +2,27 @@
   "name": "@leafac/express-async-handler",
   "version": "0.0.1",
   "description": "Use asynchronous handlers in Express with good TypeScript support",
-  "main": "distribution/index.js",
-  "types": "distribution/index.d.ts",
-  "repository": "leafac/express-async-handler",
   "keywords": [
     "express",
     "async",
     "utilities"
   ],
-  "author": "Leandro Facchinetti <express-async-handler@leafac.com> (https://leafac.com)",
-  "license": "MIT",
-  "bugs": "https://github.com/leafac/express-async-handler/issues",
   "homepage": "https://github.com/leafac/express-async-handler",
+  "bugs": "https://github.com/leafac/express-async-handler/issues",
+  "repository": "leafac/express-async-handler",
   "funding": [
     "https://patreon.com/leafac",
     "https://paypal.me/LeandroFacchinettiEU",
     "https://github.com/sponsors/leafac",
     "https://btc.com/34KJBgtaFYMtDqpSgMayw9qiKWg2GQXA9M"
   ],
+  "author": "Leandro Facchinetti <express-async-handler@leafac.com> (https://leafac.com)",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
+  "main": "distribution/index.js",
+  "types": "distribution/index.d.ts",
   "scripts": {
     "test": "prettier --check \"source/**/*\" --end-of-line auto && jest",
     "prepare": "tsc"
