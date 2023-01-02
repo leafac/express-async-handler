@@ -38,7 +38,7 @@ export function asyncErrorHandler<
   };
 }
 
-if (process.env.TEST === "leafac--express-async-handler") {
+if (process.env.TEST === "@leafac/express-async-handler") {
   const got = await import("got");
 
   await (async () => {

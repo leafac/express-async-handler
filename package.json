@@ -24,7 +24,7 @@
   "exports": "./build/index.mjs",
   "types": "./build/index.d.mts",
   "scripts": {
-    "test": "prettier --check \"source/**/*.mts\" --end-of-line auto && npm run prepare && cross-env TEST=leafac--express-async-handler node ./build/index.mjs",
+    "test": "prettier --check \"./README.md\" --check \"./package.json\" --check \"./source/**/*.mts\" --end-of-line auto && npm run prepare && cross-env TEST=@leafac/express-async-handler node ./build/index.mjs",
     "prepare": "tsc"
   },
   "dependencies": {
